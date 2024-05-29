@@ -1,26 +1,19 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import {
   Button,
   message,
   ConfigProvider,
-  Modal,
-  Menu,
-  Dropdown,
   Spin,
   Popconfirm,
-  Flex,
-  Select,
-  Input,
 } from "antd";
 import enUS from "antd/lib/locale/en_US";
 import {
   EditOutlined,
   ReloadOutlined,
-  LockOutlined,
   DeleteTwoTone,
 } from "@ant-design/icons";
 import ProTable from "@ant-design/pro-table";
-
+import AddUserWithEmail from "../../../components/addUser/addUserButton";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UserModal from "../../../components/UserModal/UserModal";
@@ -68,10 +61,11 @@ const YourComponent = () => {
     }
   };
 
-  const handleAddUser = () => {
-    setIsModalVisible(true);
-    setEditingKey(null);
-  };
+  // const handleAddUser = () => {
+  //   setIsModalVisible(true);
+  //   setEditingKey(null);
+  // };
+
   const handleEditUser = async (key, values) => {
     setLoading(true);
     try {
@@ -252,9 +246,7 @@ const YourComponent = () => {
               pageSize: 10,
             }}
             toolBarRender={() => [
-              <Button key="button" type="primary" onClick={handleAddUser}>
-                Add User
-              </Button>,
+              <AddUserWithEmail/>,
               <Button key="button" type="primary" onClick={fetchData}>
                 <ReloadOutlined />
                 Refresh
