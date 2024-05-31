@@ -1,4 +1,4 @@
-import HomePage from '../../pages/App_PAges/HomePage/HomePage';
+import HomePageForTest from '../../pages/App_PAges/HomePage/homePageForTest';
 
 
 const gridContainerStyle = {
@@ -26,7 +26,7 @@ export default function Home() {
       <div style={contentStyle}>
         
         
-        <HomePage />
+        <HomePageForTest />
       </div>
     </div>
   );

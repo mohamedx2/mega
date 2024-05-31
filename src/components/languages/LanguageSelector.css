@@ -14,26 +14,22 @@
   background-repeat: no-repeat;
   background-position: right center;
   font-size: 16px;
-  color: #fff;
+  color: #D3570D;
   cursor: pointer;
   appearance: none; /* Remove default appearance */
   transition: border-color 0.3s, color 0.5s; /* Transition for border and color */
 }
 
-.custom-language-selector select:hover {
-  border-color: #e78a00; /* Border color on hover */
-  outline: none;
-}
 
 .custom-language-selector select:focus {
   outline: none;
-  color: #e78a00;
+  color: #D3570D;
 }
 
 /* Style the selected option */
 .custom-language-selector select option:checked {
   background-color: #fff; /* Set background color to white */
-  color: #333; /* Set text color to match the default text color */
+  color: black; /* Set text color to match the default text color */
 }
 
 .custom-language-selector select option[disabled]:first-child {

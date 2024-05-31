@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import logoImage from '../../Assets/images/a1.png'; // Import the logo image
 import LanguageSelector from '../../components/languages/LanguageSelector';
 import { useTranslation } from 'react-i18next';
+import {Button, ButtonGroup} from "@nextui-org/button";
 
 function Navb() {
   const { t } = useTranslation();
@@ -18,7 +19,7 @@ function Navb() {
   return (
     <header className="costum-header">
       <a href="/Home" className="costum-costum-logo">
-        <img src={logoImage} alt="Logo"></img>
+        <img src={logoImage} alt="Logo" className='h-[50px] left-20 '></img>
       </a>
       <div>
         <nav className="costum-navigation">
@@ -33,7 +34,7 @@ function Navb() {
           </Link>
           <LanguageSelector />
           <Link to="/Login">
-            <button className="costum-btnlogin">{t('login')}</button>
+            <Button variant='bordered' className="border-[#D3570D] text-[#D3570D] font-semibold text-md mr-[53px]">{t('login')}</Button>
           </Link>
         </nav>
       </div>

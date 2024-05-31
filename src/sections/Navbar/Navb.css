@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
 .costum-header {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -9,9 +9,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(39, 39  , 40, 0.5);
-    backdrop-filter: blur(10px);
-    padding: 10px 20px;
+    /* background-color: rgba(39, 39  , 40, 0.5);
+    backdrop-filter: blur(10px); */
+    padding-left: 53px;
     color: #ffffff;
     flex-shrink: 0; /* Prevent the header from shrinking */
     height: 60px; /* Set a fixed height for the header */
@@ -29,23 +29,23 @@
 }
 
 .costum-navigation .costum-btnlogin {
-    width: 130px;
+    width: 150px;
     height: 50px;
     background: transparent;
-    border: 2px solid #e78a00;
+    border: 2px solid #D3570D;
     outline: none;
     border-radius: 6px;
     cursor: pointer;
     font-size: 1.1em;
-    color: #e78a00;
+    color: #D3570D;
     font-weight: 750;
     margin-right: 50px;
     transition: 0.5s;
 }
 
 .costum-navigation .costum-btnlogin:hover {
-    background: #e78a00;
-    color: #2b2b2b;
+    background: #D3570D;
+    color: black;
 }
 
 .costum-navigation .costum-navigation-link::after {
@@ -53,7 +53,7 @@
     position: absolute;
     width: 100%;
     height: 3px;
-    background: #e78a00;
+    background: #D3570D;
     border-radius: 5px;
     left: 0;
     bottom: -6px;

@@ -25,6 +25,7 @@ const LanguageSelector = () => {
 
   return (
     <div className="custom-language-selector">
+      <FontAwesomeIcon icon={faGlobe} className="custom-globe-icon text-[#D3570D]" />
       <select value={selectedLanguage} onChange={(e) => handleLanguageChange(e.target.value)} className="custom-select">
         <option value="" disabled hidden>
           {t('language')}
@@ -34,7 +35,7 @@ const LanguageSelector = () => {
         <option value="de">Deutsch</option>
         {/* Add more language options as needed */}
       </select>
-      <FontAwesomeIcon icon={faGlobe} className="custom-globe-icon" />
+      
     </div>
   );
 };
