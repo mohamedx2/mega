@@ -5,6 +5,7 @@ import logoImage from '../../Assets/images/a1.png'; // Import the logo image
 import LanguageSelector from '../../components/languages/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import {Button, ButtonGroup} from "@nextui-org/button";
+import LogButton from '../../pages/App_PAges/LoginForm/logButton';
 
 function Navb() {
   const { t } = useTranslation();
@@ -33,9 +34,10 @@ function Navb() {
             <span className="costum-navigation-link-text">{t('contactUs')}</span>
           </Link>
           <LanguageSelector />
-          <Link to="/Login">
+          {/* <Link to="/Login">
             <Button variant='bordered' className="border-[#D3570D] text-[#D3570D] font-semibold text-md mr-[53px]">{t('login')}</Button>
-          </Link>
+          </Link> */}
+          <LogButton/>
         </nav>
       </div>
     </header>
