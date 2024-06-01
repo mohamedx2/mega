@@ -14,11 +14,14 @@ const MemoizedDashboardFooter = memo(DashboardFooter);
 // Memoizing Dash_Header component
 const MemoizedDashHeader = memo(Dash_Header);
 
+import { RiCopilotFill } from "react-icons/ri";
+
 const DashboardLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
+      <RiCopilotFill className="fixed m-8 bottom-0 right-0 size-8 z-50" />
       <MemoizedSidebar collapsed={collapsed} setCollapsed={setCollapsed} />
       <Layout
         style={{
@@ -29,6 +32,7 @@ const DashboardLayout = () => {
         <MemoizedDashHeader />
         <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
           <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt veniam tempore rem suscipit officia vero animi aspernatur id eaque necessitatibus in, amet, explicabo perferendis harum, iusto expedita inventore error quisquam. </div>
             <Outlet /> {/* Nested routes will be rendered here */}
           </div>
         </Content>

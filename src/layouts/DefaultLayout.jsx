@@ -9,7 +9,7 @@ const DefaultLayout = ({ children }) => {
   return (
     <div>
       <MemoizedNavb />
-      {children}
+        {children}
       <MemoizedFooter />
     </div>
   );

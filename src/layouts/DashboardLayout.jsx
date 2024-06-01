@@ -5,6 +5,8 @@ import DashboardFooter from '../sections/dashboard_footer/Dashboard_Footer';
 import { Outlet } from 'react-router-dom';
 import Dash_Header from '../sections/dashboard_header/Dash_Header';
 
+import { RiCopilotFill } from "react-icons/ri";
+
 const { Header, Content } = Layout;
 
 // Memoizing Sidebar component
@@ -18,19 +20,19 @@ const DashboardLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout style={{ minHeight: '100vh' }} className='border-5 border-black'>
       <MemoizedSidebar collapsed={collapsed} setCollapsed={setCollapsed} />
       <Layout
-      
         style={{
           marginLeft: collapsed ? 80 : 220, // Adjust based on sidebar width
           transition: 'margin-left 0.2s',
+          position: 'relative',
         }}
       >
         <MemoizedDashHeader />
         <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
           <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-            <Outlet /> {/* Nested routes will be rendered here */}
+            <Outlet />
           </div>
         </Content>
         <MemoizedDashboardFooter />
