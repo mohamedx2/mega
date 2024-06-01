@@ -33,7 +33,7 @@ function Navb() {
             <span className="costum-navigation-link-text">{t('contactUs')}</span>
           </Link>
           <LanguageSelector />
-          <Link to="/Login">
+          <Link to="/login">
             <Button variant='bordered' className="border-[#D3570D] text-[#D3570D] font-semibold text-md mr-[53px]">{t('login')}</Button>
           </Link>
         </nav>
