@@ -15,7 +15,7 @@ export default function Mapp() {
             marginTop: "4px",
             border: "3px solid #FF6A3D",
             borderRadius: "7px",
-            zIndex: "1000",
+            zIndex: "1",
             position: "relative",
           }}
 
