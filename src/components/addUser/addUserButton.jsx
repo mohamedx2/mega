@@ -17,7 +17,7 @@ export default function AddUserButton() {
     try {
       const token = localStorage.getItem('token'); // Assuming the token is stored in local storage
       const response = await axios.post(
-        'https://backray.onrender.com/api/join',
+        'https://backray.onrender.com/api/mail',
         { receiver: email },
         { headers: { Authorization: `Bearer ${token}` } }
       );
