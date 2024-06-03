@@ -20,6 +20,7 @@ import Formation from './pages/Dashboard_Pages/formation/Formation';
 import { useSelector } from 'react-redux';
 import StreamPage from './pages/Dashboard_Pages/stream/SreamPage';
 import ÂboutUsForTest from './pages/App_PAges/AboutUs/AboutUsForTest';
+import Workplace from './pages/Dashboard_Pages/workplace/workplace';
 
 
 
@@ -67,7 +68,7 @@ const App = () => {
           <Route path={`/profile/:userId`} element={<ProfilePage />} />
           <Route path="/stream" element={<StreamPage />} />
           <Route path="/formation" element={<Formation />} />
-          
+          <Route path="/workplace" element={<Workplace />} />
         </Route>
 
         <Route path="/" element={getRouteElement()} >

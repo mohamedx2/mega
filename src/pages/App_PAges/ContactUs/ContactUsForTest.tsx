@@ -14,14 +14,14 @@ export default function KontaktUsForTest() {
       <div className=" fixed z-0 w-[700px] h-[700px] rounded-full blur-3xl bg-[#D3570D]/10 rotate-45 bg-gradient-radial left-[-10%] top-[-30%] "></div>
       <div className="fixed z-0 w-[700px] h-[700px] rounded-full blur-3xl bg-[#D3570D]/10 rotate-45 bg-gradient-radial right-[-10%] bottom-[-30%] "></div>
 
-      <div className="sm:h-screen   flex flex-col justify-center items-center md:flex-row lg:m-6">
+      <div className="sm:h-screen   flex flex-col justify-center items-center md:flex-row mr-20">
         <div className="w-full h-[50%] md:w-[50%] md:h-full flex justify-center items-center   md:mr-5 lg:mr-10">
           <div className="z-0 absolute top-0 left-0 w-[30%] h-[100%] bg-[#D3570D]/70 " data-aos="slide-right"
             data-aos-duration="1500"></div>
           <Mapp />
         </div>
 
-        <div className="bg-[url('/bg.jpeg')] w-full h-full lg:bg-none lg:w-[50%] p-2 flex flex-col justify-center  lg:justify-center lg:mt-5" data-aos="slide-left"
+        <div className="bg-[url('/bg.jpeg')] w-full h-full lg:bg-none lg:w-[100%] p-2 flex flex-col justify-center  lg:justify-center lg:mt-5" data-aos="slide-left"
           data-aos-duration="1500"
           data-aos-anchor-placement="top-bottom">
           <p className="text-default-400 text-center text-xl sm:text-4xl  md:text-3xl font-bold lg:text-start ">Unsere Hauptfiliale</p>

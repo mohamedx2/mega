@@ -8,6 +8,7 @@ import {
   ClockCircleOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
+import { AiOutlineBarChart } from 'react-icons/ai';
 
 const { Sider } = Layout;
 

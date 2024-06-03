@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { AiOutlineBarChart } from "react-icons/ai";
 import { Layout, Menu, Avatar } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
 import {
@@ -34,15 +35,16 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem('Home', '1', <HomeOutlined />, '/'),
-  getItem('User', '2', <UserOutlined />, '/user'),
-  getItem('Events', '3', <ClockCircleOutlined />, '/calendar'),
-  getItem('Formation', '4', <SettingOutlined />, '/formation'),
-  getItem('Team', '5', <TeamOutlined />, '', [
-    getItem('Team 1', '6'),
-    getItem('Team 2', '7'),
-    getItem('Team 3', '8'),
-  ]),
+  getItem('Dashboard', '1', <HomeOutlined />, '/'),
+  getItem('Mitarbeiter', '2', <UserOutlined />, '/user'),
+  getItem('Schichten-planer', '3', <ClockCircleOutlined />, '/calendar'),
+  getItem('Schulungen', '4', <SettingOutlined />, '/formation'),
+  getItem('Workspace', '5', <AiOutlineBarChart />, '/workplace'),
+  // getItem('Team', '5', <TeamOutlined />, '', [
+  //   getItem('Team 1', '6'),
+  //   getItem('Team 2', '7'),
+  //   getItem('Team 3', '8'),
+  // ]),
 ];
 
 const Sidebar: React.FC<{
