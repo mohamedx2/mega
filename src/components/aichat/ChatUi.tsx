@@ -10,12 +10,6 @@ type chat = {
     sender: "human" | "ai",
 }
 
-const models = [
-    "gemini-1.5-flash-latest",
-    "gemini-1.5-pro",
-    "gemini-1.0",
-]
-
 export default function ChatUi(){
     const [content, setContent] = useState("")
     const [IsDisabled, setIsDisabled] = useState(false)
@@ -30,7 +24,7 @@ export default function ChatUi(){
         addChat(human)
         setIsDisabled(true)
 
-        axios.post("https://backray.onrender.com/api/ai", {content})
+        axios.post("http://localhost:8000/api/ai", {content})
         .then((res)=>{
             const ai:chat = {message: res.data, sender: "ai"}
             addChat(ai)
