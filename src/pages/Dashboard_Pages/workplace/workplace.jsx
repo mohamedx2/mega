@@ -10,6 +10,7 @@ import {
   Button,
   Pagination,
 } from "@nextui-org/react";
+import { IoLocationOutline } from "react-icons/io5";
 import AddProject from "./addProject";
 import { MdOutlineDeleteSweep } from "react-icons/md";
 import {Time} from "@internationalized/date";
@@ -61,19 +62,12 @@ export default function Workspace() {
     return filteredProjects.slice(start, end);
   }, [page, filteredProjects, rowsPerPage]);
 
-  const sortedItems = useMemo(() => {
-    return [...items].sort((a, b) => {
-      const first = a[sortDescriptor.column];
-      const second = b[sortDescriptor.column];
-      const cmp = first < second ? -1 : first > second ? 1 : 0;
-      return sortDescriptor.direction === "descending" ? -cmp : cmp;
-    });
-  }, [sortDescriptor, items]);
+
 
   const onRowsPerPageChange = useCallback((e) => {
     setRowsPerPage(Number(e.target.value));
     setPage(1);
-  }, []);
+}, []);
 
   const onSearchChange = useCallback((value) => {
     if (value) {
@@ -101,7 +95,8 @@ export default function Workspace() {
     }
   }, [page]);
 
-  return (
+  const topContent = useMemo(() => {
+    return (
     <>
       <div className="flex justify-between gap-3 w-full items-baseline mb-5">
         <div className="flex w-[50%]">
@@ -120,6 +115,7 @@ export default function Workspace() {
           <select
             className="bg-transparent outline-none text-default-400 text-small"
             onChange={onRowsPerPageChange}
+            value={rowsPerPage}
           >
             <option value="5">5</option>
             <option value="10">10</option>
@@ -128,56 +124,84 @@ export default function Workspace() {
         </label>
 
       </div>
-      <Table
-        selectionMode="single"
-        selectedKeys={[]}
-        aria-label="workplace"
-        sortDescriptor={sortDescriptor}
-        onSortChange={setSortDescriptor}
-        className="mb-3"
-        shadow="sm"
-      >
-        <TableHeader>
-          <TableColumn key="name" allowsSorting>Name</TableColumn>
-          <TableColumn key="actions" >Actions</TableColumn>
-        </TableHeader>
-        <TableBody emptyContent={"No projects found"} items={sortedItems}>
-        {!items ? []:
-                    projects.map((p)=>(
-                        <TableRow  className="cursor-pointer" key={p.id} onClick={()=>{
-                        //   
-                        }}>
-                            <TableCell>
-                              <p className="flex items-center"><FaBookmark color={p.color} size={20} className="mr-2"/>{p.name}</p>
-                            </TableCell>
-                            <TableCell className="flex justify-end">
-                              <EditProject editFunction={handleEdit} project={p}/>
-                              <Button variant="light" color="danger" isIconOnly onClick={()=>{handleDelete(p.id)}}><MdOutlineDeleteSweep size={20}/></Button>
-                            </TableCell>
-                        </TableRow>
-                    ))
-                }
-        </TableBody>
-      </Table>
-      <div className="py-2 px-2 flex justify-between items-center">
-        <Pagination
-          isCompact
-          showControls
-          showShadow
-          color="primary"
-          page={page}
-          total={pages}
-          onChange={setPage}
-        />
-        <div className="flex gap-2">
-          <Button isDisabled={page === 1} size="sm" variant="flat" onClick={onPreviousPage}>
-            Previous
-          </Button>
-          <Button isDisabled={page === pages} size="sm" variant="flat" onClick={onNextPage}>
-            Next
-          </Button>
-        </div>
-      </div>
-    </>
-  );
-}
+      </> )}, [filterValue, onClear, onRowsPerPageChange, onSearchChange, rowsPerPage]);
+      return(
+
+          <>
+            <Table
+              selectionMode="single"
+              selectedKeys={[]}
+              aria-label="workplace"
+              sortDescriptor={sortDescriptor}
+              topContent={topContent}
+              onSortChange={setSortDescriptor}
+              className="mb-3"
+              shadow="sm"
+            >
+              <TableHeader>
+                <TableColumn key="name" allowsSorting>
+                  Name
+                </TableColumn>
+                <TableColumn key="actions">Actions</TableColumn>
+              </TableHeader>
+              <TableBody emptyContent={"No projects found"} items={items}> 
+                {!items ? (
+                  []
+                ) : (
+                  items.map((p) => (
+                    <TableRow className="cursor-pointer" key={p.id} onClick={() => {
+                      //   
+                    }}>
+                      <TableCell>
+                        <p className="flex items-center">
+                          <FaBookmark color={p.color} size={20} className="mr-2" />
+                          {p.name}
+                        </p>
+                      </TableCell>
+                      <TableCell className="flex justify-end">
+                        <Button
+                          variant="light"
+                          color="success"
+                          className="mr-2"
+                          isIconOnly
+                          onClick={()=>{}}
+                        ><IoLocationOutline size={20} /></Button>
+                        <EditProject editFunction={handleEdit} project={p} />
+                        <Button
+                          variant="light"
+                          color="danger"
+                          isIconOnly
+                          onClick={() => {
+                            handleDelete(p.id);
+                          }}
+                        >
+                          <MdOutlineDeleteSweep size={20} />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+            <div className="py-2 px-2 flex justify-between items-center">
+              <Pagination
+                isCompact
+                showControls
+                showShadow
+                color="primary"
+                page={page}
+                total={pages}
+                onChange={(page) => setPage(page)}
+              />
+              <div className="flex gap-2">
+                <Button isDisabled={page === 1} size="sm" variant="flat" onClick={onPreviousPage}>
+                  Previous
+                </Button>
+                <Button isDisabled={page === pages} size="sm" variant="flat" onClick={onNextPage}>
+                  Next
+                </Button>
+              </div>
+            </div>
+          </>
+        );
+      }
