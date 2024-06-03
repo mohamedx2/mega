@@ -30,7 +30,7 @@ const App = () => {
 
 
 
-
+  //@ts-ignore
   const { user } = useSelector(state => state.auth);
   
 
@@ -62,6 +62,7 @@ const App = () => {
 
 
         <Route path="/" element={getRouteElement()} >
+          
           <Route index element={<Dash_Home />} /> 
           <Route path="/user" element={<User />} /> 
           <Route path="/calendar" element={<Calendar />} /> 

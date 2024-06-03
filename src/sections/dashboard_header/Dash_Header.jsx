@@ -7,6 +7,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { useEffect ,useState } from 'react';
 import React, { useCallback, useMemo } from 'react';
 
+import AiModal from '../../components/aichat/aiModal';
+
 const { Header } = Layout;
 const { Search } = Input;
 
@@ -61,19 +63,20 @@ const Dash_Header = () => {
   ), [user._id, logoutHandler]);
 
   return (
-    <Header style={{ padding: '0 50px', background: '#f0f2f5', boxShadow: '0 2px 8px #f0f1f2', height: '50px' }}>
+    <Header style={{ padding: '0 50px', background: '#f0f2f5', boxShadow: '0 2px 8px #f0f1f2', height: '50px', zIndex: 1 }}>
       <Flex justify="space-between" align="center" style={{ width: '100%' }}>
         <Flex flex="auto" align="center">
           <img src={logo} alt="Logo" style={{ width: '120px', position: 'relative' }} />
         </Flex>
         <Space>
         <Flex flex="auto" align="center">
+          <AiModal />
           <Search
             placeholder="Search..."
             onSearch={value => console.log(value)}
             style={{ width: 300, marginRight: '20px' }}
           />
-          </Flex>
+        </Flex>
           {userInfo && (
         <Dropdown overlay={menu} trigger={['click']}>
           <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
