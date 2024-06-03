@@ -15,6 +15,8 @@ import Calendar from './pages/Dashboard_Pages/calendar/Calendar';
 import ProfilePage from './pages/Dashboard_Pages/profile/ProfilePage ';
 import UserDashboardLayout from './layouts/UserDashboardLayout';
 import Formation from './pages/Dashboard_Pages/formation/Formation';
+import Chat from './pages/Dashboard_Pages/chat/Chat'
+
 // Import other components for nested routes inside Dashboard
 
 
@@ -67,6 +69,8 @@ const App = () => {
           <Route path="/user" element={<User />} /> 
           <Route path="/calendar" element={<Calendar />} /> 
           <Route path={`/profile/:userId`} element={<ProfilePage />} />
+          <Route path="/chat" element={<Chat />} />
+
           <Route path="/stream" element={<StreamPage />} />
           <Route path="/formation" element={<Formation />} />
           <Route path="/workplace" element={<Workplace />} />
