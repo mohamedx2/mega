@@ -127,8 +127,8 @@ function Register() {
     return (
         <React.Fragment>
 
-            <div className='costum-login-body'>
-                <div className='costum-wrapper'>
+            <div className='costum-login-body '>
+                <div className='costum-wrapper h-[70%]'>
                     <form onSubmit={registerUser}>
                         <h1>{t('reg')}</h1>
                         <div className="costum-input-box">

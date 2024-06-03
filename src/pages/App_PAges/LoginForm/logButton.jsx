@@ -5,6 +5,7 @@ import { EyeFilledIcon } from "./EyeFilledIcon"
 import { useState } from "react"
 import { HiOutlineMail } from "react-icons/hi";
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 // import axios from 'axios';
 // import { toast } from 'react-hot-toast';
 // axios.defaults.baseURL ='http://localhost:8000';
@@ -90,14 +91,7 @@ export default function LogButton() {
                 />
 
                 <div className="flex py-2 px-1 justify-between items-start">
-                <Checkbox
-                    color="warning"
-                    classNames={{
-                      label: "text-small",
-                    }}
-                  >
-                    Remember me
-                </Checkbox>
+                <p className="text-white">Don't have account ? <Link to="/Register">Sign up</Link></p>
                   <a className="text-[#d3570d] text-sm border-b-1 border-[#d3570d]" href="#" >
                     Forgot password?
                   </a>
