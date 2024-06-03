@@ -16,7 +16,7 @@ import ProfilePage from './pages/Dashboard_Pages/profile/ProfilePage ';
 import UserDashboardLayout from './layouts/UserDashboardLayout';
 import Formation from './pages/Dashboard_Pages/formation/Formation';
 // Import other components for nested routes inside Dashboard
-import Chat from './pages/Dashboard_Pages/chat/Chat'
+
 
 import { useSelector } from 'react-redux';
 import StreamPage from './pages/Dashboard_Pages/stream/SreamPage';
@@ -64,7 +64,6 @@ const App = () => {
 
         <Route path="/" element={getRouteElement()} >
           <Route index element={<Dash_Home />} /> 
-          <Route path="/chat" element={<Chat />} />
           <Route path="/user" element={<User />} /> 
           <Route path="/calendar" element={<Calendar />} /> 
           <Route path={`/profile/:userId`} element={<ProfilePage />} />
