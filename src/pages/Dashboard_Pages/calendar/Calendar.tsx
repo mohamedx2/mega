@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Badge, Calendar, Modal, Form, Input, Select, Button, List } from 'antd';
+import { Badge, Calendar, Modal, Form, Input, Select, Button, List, BadgeProps } from 'antd';
+import type { Dayjs } from 'dayjs';
 import axios from 'axios';
 import { Moment } from 'moment';
+import { SelectInfo } from 'antd/es/calendar/generateCalendar';
+import { error } from 'console';
 
 const { Option } = Select;
 
@@ -12,22 +15,87 @@ interface CalendarEvent {
   content: string;
 }
 
+const dummyData: CalendarEvent[] = [
+  {
+    _id: '1',
+    date: '2023-10-26',
+    type: 'success',
+    content: 'Project deadline met',
+  },
+  {
+    _id: '2',
+    date: '2023-10-28',
+    type: 'warning',
+    content: 'Meeting with client, prepare presentation',
+  },
+  {
+    _id: '3',
+    date: '2023-11-01',
+    type: 'error',
+    content: 'Server maintenance, website unavailable',
+  },
+  {
+    _id: '4',
+    date: '2023-11-05',
+    type: 'success',
+    content: 'New product launch',
+  },
+  {
+    _id: '5',
+    date: '2023-11-10',
+    type: 'warning',
+    content: 'Team meeting, discuss project progress',
+  }  
+];
+
 const CalendarComponent: React.FC = () => {
-  const [calendarData, setCalendarData] = useState<CalendarEvent[]>([]);
+  const [calendarData, setCalendarData] = useState<CalendarEvent[]>(dummyData);
   const [selectedDateEvents, setSelectedDateEvents] = useState<CalendarEvent[]>([]);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+
+  const [workers, setWorkers] = useState<any[]>([]);
+  const [selectedWorker, setSelectedWorker] = useState<string | null>(null);
+
+  console.log(workers)
+
+  useEffect(() => {
+    const fetchWorkers = async () => {
+      const authToken = localStorage.getItem("token");
+      axios.get("https://backray.onrender.com/api/users/profile", {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      })
+      .then((res)=>{
+        setWorkers(res.data)
+        console.log("workers ", res.data)
+      })
+      .catch((err)=>{
+        console.log("error ", err)
+      })
+    }
+
+    fetchWorkers()
+  },[])
+
+  const getListData = (value: Dayjs) => {
+    const date = `${value.year()}-${value.month() + 1}-${value.date()}`;
+    const ListData = calendarData.filter((event) => event.date === date);
+    return ListData
+  }
 
   useEffect(() => {
     const fetchCalendarData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const { data } = await axios.get('https://backray.onrender.com/api/calendar/user', {
+        const { data } = await axios.get('http://localhost:8000/api/calendar/user', {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
-        setCalendarData(data);
+        console.log("data ", data)
+        setCalendarData(dummyData);
       } catch (error) {
         console.error('Error fetching calendar data:', error);
       }
@@ -36,17 +104,17 @@ const CalendarComponent: React.FC = () => {
     fetchCalendarData();
   }, []);
 
-  const handleDateSelect = (value: Moment) => {
-    const selectedDate = value.toDate();
+  const handleDateSelect = (date: Dayjs, selectInfo: SelectInfo) => {
+    if(selectInfo.source !== "date") return
     const events = calendarData.filter((event) => {
       const eventDate = new Date(event.date);
-      return eventDate.getDate() === selectedDate.getDate() &&
-             eventDate.getMonth() === selectedDate.getMonth() &&
-             eventDate.getFullYear() === selectedDate.getFullYear();
+      return eventDate.getDate() === date.date() &&
+             eventDate.getMonth() === date.month() &&
+             eventDate.getFullYear() === date.year();
     });
 
     setSelectedDateEvents(events);
-    setSelectedDate(selectedDate);
+    setSelectedDate(`${date.year()}-${date.month() + 1}-${date.date()}`);
     setIsModalVisible(true);
   };
 
@@ -56,6 +124,7 @@ const CalendarComponent: React.FC = () => {
 
   const handleFormSubmit = async (values: { type: string; content: string }) => {
     if (!selectedDate) return;
+
     try {
       const token = localStorage.getItem('token');
       const newEvent = {
@@ -64,14 +133,18 @@ const CalendarComponent: React.FC = () => {
         content: values.content
       };
 
-      const { data } = await axios.post('https://backray.onrender.com/api/calendar', newEvent, {
+      axios.post('http://localhost:8000/api/calendar', newEvent, {
         headers: {
           Authorization: `Bearer ${token}`
         }
-      });
-
-      setCalendarData([...calendarData, data]);
-      setSelectedDateEvents([...selectedDateEvents, data]);
+      }).then((res)=>{
+        // el res.data hya el return json mta3 el api lazem tkoun de type CalendarEvent
+        setCalendarData([...calendarData, res.data]);
+        setSelectedDateEvents([...selectedDateEvents, res.data]);
+      })
+      .catch(error=>{
+        console.error('Error adding event:', error);
+      })
     } catch (error) {
       console.error('Error adding event:', error);
     } finally {
@@ -97,19 +170,15 @@ const CalendarComponent: React.FC = () => {
     }
   };
 
-  const dateCellRender = (value: Moment) => {
-    const events = calendarData.filter((event) => {
-      const eventDate = new Date(event.date);
-      return eventDate.getDate() === value.date() &&
-             eventDate.getMonth() === value.month() &&
-             eventDate.getFullYear() === value.year();
-    });
+  const dateCellRender = (value: Dayjs) => {
+    if(selectedWorker === null) return
+    const listData = getListData(value);
 
     return (
       <ul className="events">
-        {events.map((event) => (
-          <li key={event._id} onClick={() => handleDateSelect(value)}>
-            <Badge status={event.type} text={event.content} />
+        {listData.map((item) => (
+          <li key={item.content}>
+            <Badge status={item.type as BadgeProps['status']} text={item.content} />
           </li>
         ))}
       </ul>
@@ -118,7 +187,17 @@ const CalendarComponent: React.FC = () => {
 
   return (
     <div>
-      <Calendar dateCellRender={dateCellRender} onSelect={handleDateSelect} />
+      <div className='w-[400px]'>
+        <Select className='w-full' placeholder="Select worker" onSelect={setSelectedWorker}>
+          {workers.map((user) => <Option value={user._id}>{user.email}</Option>)}
+        </Select>
+      </div>
+      <Calendar onSelect={handleDateSelect} cellRender={(date, info)=>{
+        if(info.type === "date"){
+          return dateCellRender(date)
+        }
+        return null
+      }} />
       <Modal
         title="Events"
         visible={isModalVisible}
@@ -146,6 +225,7 @@ const CalendarComponent: React.FC = () => {
               <Option value="error">error</Option>
             </Select>
           </Form.Item>
+
           <Form.Item name="content" label="Content" rules={[{ required: true, message: 'Please enter the content' }]}>
             <Input placeholder="Enter content" />
           </Form.Item>
