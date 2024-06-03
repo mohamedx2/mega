@@ -62,7 +62,7 @@ const App = () => {
 
 
         <Route path="/" element={getRouteElement()} >
-          
+          <Route path="/chat" element={<Chat />} />
           <Route index element={<Dash_Home />} /> 
           <Route path="/user" element={<User />} /> 
           <Route path="/calendar" element={<Calendar />} /> 
