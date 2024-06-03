@@ -4,18 +4,38 @@ import {TimeInput} from "@nextui-org/react";
 import {Time} from "@internationalized/date";
 import { useState } from "react";
 
+
 export default function AddProject({addFunction}) {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [color, setColor] = useState('#1677ff');
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
+  const [invalid,setInvalid] = useState(false);
+  console.log(startTime,endTime,name)
 
+  const handleAdd=(onClose)=>{
+    if ((name==="" ) || !startTime || !endTime) {
+      setInvalid(true)
+      return 
+    }
+    console.log("reset")
+    addFunction(name,color,startTime,endTime);
+    setEndTime(null);
+    setStartTime(null);
+    setName("");
+    onClose()
+  }
 
 
   return (
     <>
-      <Button className="ml-5 flex-shrink-0" startContent={< IoMdAdd size={18}/>}    color="primary" onPress={onOpen}>Add Project</Button>
+      <Button className="ml-5 flex-shrink-0" startContent={< IoMdAdd size={18}/>}    color="primary" onPress={()=>{
+        setInvalid(false);
+        onOpen()}}
+      >
+        Add Project
+      </Button>
       <Modal backdrop="transparent" isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
@@ -23,9 +43,11 @@ export default function AddProject({addFunction}) {
               <ModalHeader className="flex flex-col gap-1 text-[#d15711]">Manage Shift Groups</ModalHeader>
               <ModalBody className="flex justify-center ">
               <p>Add Project :</p>
-              <Input type="text" variant="bordered" label="Project Name" onChange={(e)=>{setName(e.target.value)}} />
-              <TimeInput label="Start Time" value={startTime} onChange={setStartTime} variant="bordered" placeholderValue={new Time(9)}/>
-              <TimeInput label="End Time" value={endTime} variant="bordered" placeholderValue={new Time(9)} onChange={setEndTime}/>
+              <Input type="text" variant="bordered" label="Project Name" onChange={(e)=>{setName(e.target.value)}} isInvalid={invalid && name===''} errorMessage={invalid && name==='' ?"please fill all the fields" : null} />
+
+              <TimeInput label="Start Time" value={startTime} onChange={setStartTime} variant="bordered" placeholderValue={new Time(9)} isInvalid={invalid && startTime===null} errorMessage={invalid && startTime===null ?"please fill all the fields" : null}/>
+
+              <TimeInput label="End Time" value={endTime} variant="bordered" placeholderValue={new Time(9)} onChange={setEndTime} isInvalid={invalid && endTime===null} errorMessage={invalid && endTime===null ?"please fill all the fields" : null}/>
               <div className="flex justify-start w-full items-center ml-2">
                 <label className="mr-5" >Project Color :</label>
                 <input type="color" className="mr-16 w-10 h-10" value={color} onChange={(c) => {
@@ -45,7 +67,7 @@ export default function AddProject({addFunction}) {
                 <Button variant="light" className="text-[#d15711] text-md" onPress={onClose}>
                   Close
                 </Button>
-                <Button className="bg-[#d15711] text-white text-md" onPress={()=>{addFunction(name,color,startTime,endTime);setEndTime(null);setStartTime(null);onClose()}}>
+                <Button className="bg-[#d15711] text-white text-md" onPress={()=>handleAdd(onClose)}>
                   Add Project
                 </Button>
               </ModalFooter>

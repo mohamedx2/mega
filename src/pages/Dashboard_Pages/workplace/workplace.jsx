@@ -16,6 +16,7 @@ import { MdOutlineDeleteSweep } from "react-icons/md";
 import {Time} from "@internationalized/date";
 import EditProject from "./editProject";
 import { FaBookmark } from "react-icons/fa";
+import { Alert, Space } from 'antd';
 
 
 const initialProjects = [
@@ -34,10 +35,14 @@ export default function Workspace() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sortDescriptor, setSortDescriptor] = useState({ column: "name", direction: "ascending" });
   const [page, setPage] = useState(1);
+  const [invalid,setInvalid] = useState(false);
 
   const handleAdd = (projectName,projectColor,startTime,endTime) => {
+    if (!projectName || !startTime || !endTime) {
+        setInvalid(true)
+    }
     const newProject = { id: projects.length + 1, name: projectName, color: projectColor,startTime:startTime,endTime:endTime };
-    setProjects([...projects, newProject]);
+    setProjects(prev=>[...prev, newProject]);
   };
 
   const handleEdit = (id,newName,newColor,startTime,endTime) => {
@@ -128,6 +133,7 @@ export default function Workspace() {
       return(
 
           <>
+          
             <Table
               selectionMode="single"
               selectedKeys={[]}
