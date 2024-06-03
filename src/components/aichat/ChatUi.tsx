@@ -24,7 +24,7 @@ export default function ChatUi(){
         addChat(human)
         setIsDisabled(true)
 
-        axios.post("https://backray.onrender.com/api/api/ai", {content})
+        axios.post("https://backray.onrender.com/api/ai", {content})
         .then((res)=>{
             const ai:chat = {message: res.data, sender: "ai"}
             addChat(ai)
