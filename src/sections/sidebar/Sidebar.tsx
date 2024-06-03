@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   HomeOutlined,
   UserOutlined,
-  TeamOutlined,
+  TeamOutlined,WechatOutlined,
   ClockCircleOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
@@ -40,6 +40,7 @@ const items: MenuItem[] = [
   getItem('Schichten-planer', '3', <ClockCircleOutlined />, '/calendar'),
   getItem('Schulungen', '4', <SettingOutlined />, '/formation'),
   getItem('Workspace', '5', <AiOutlineBarChart />, '/workplace'),
+  getItem('Chat', '6',<WechatOutlined />, '/chat'),
   // getItem('Team', '5', <TeamOutlined />, '', [
   //   getItem('Team 1', '6'),
   //   getItem('Team 2', '7'),
